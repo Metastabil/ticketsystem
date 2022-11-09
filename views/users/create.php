@@ -42,6 +42,7 @@ $inputs = [
         'maxlength' => '255',
         'class' => '',
         'autocomplete' => 'off',
+        'value' => '',
         'required' => 'required'
     ],
     [
@@ -53,6 +54,7 @@ $inputs = [
         'maxlength' => '255',
         'class' => '',
         'autocomplete' => 'off',
+        'value' => '',
         'required' => 'required'
     ]
 ];
