@@ -16,7 +16,8 @@ class FormHelper {
      *      'placeholder' => 'input-placeholder',
      *      'maxlength' => '255',
      *      'class' => 'input-class-1 input-class-2',
-     *      'autocomplete' => 'off'
+     *      'autocomplete' => 'off',
+     *      'value' => 'Some Value'
      *  ],
      *  [
      *      'type' => 'text',
@@ -27,7 +28,8 @@ class FormHelper {
      *      'maxlength' => '255',
      *      'class' => 'input-class-1 input-class-2',
      *      'autocomplete' => 'off',
-     *      'required' => 'required'
+     *      'required' => 'required',
+     *      'value' => 'Some Value'
      *  ]
      * ];
      */
@@ -71,8 +73,9 @@ class FormHelper {
             $classes = (empty($input['classes'])) ? '' : $input['classes'];
             $autocomplete = (empty($input['autocomplete'])) ? 'on' : $input['autocomplete'];
             $required = (empty($input['required'])) ? '' : 'required';
+            $value = (empty($input['value'])) ? '' : $input['value'];
 
-            $form_string .= "<input type='$type' name='$name' id='$id' title='$title' placeholder='$placeholder' maxlength='$maxlength' class='$classes' autocomplete='$autocomplete' $required/>";
+            $form_string .= "<input type='$type' name='$name' id='$id' title='$title' placeholder='$placeholder' maxlength='$maxlength' class='$classes' autocomplete='$autocomplete' value='$value' $required/>";
         }
 
         /* Build the buttons */
