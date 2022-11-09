@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+@import 'variables.css';
+
+* { box-sizing: border-box; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: var(--grey);
+    font: 2vh 'Nunito';
+    margin: 0;
+}
+
+h1 {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    color: var(--pink);
+    margin: 0;
+    left: 50%;
+    top: 50%;
+}

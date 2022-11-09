@@ -1,0 +1,30 @@
+/* Single Classes */
+.default-title {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 5vh;
+}
+
+/* Default Form */
+.default-form {
+    transform: translate(-50%, -40%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.default-form input,
+.default-form select {
+    border: none;
+    border-bottom: 1px solid var(--black);
+    font: 2vh 'Nunito';
+    width: 40vw;
+    padding: 8px;
+    margin: 0 0 20px 0;
+}
+
+.default-form input:focus,
+.default-form select:focus {
+    border-bottom: 1px solid var(--blue);
+    outline: none;
+}

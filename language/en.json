@@ -1,0 +1,95 @@
+{
+  "Languages": {
+    "DE": "German",
+    "EN": "English"
+  },
+  "TabTitles": {
+    "UsersIndex": "Users | Tickets",
+    "UsersCreate": "Create user | Tickets",
+    "Login": "Login | Tickets",
+    "StatusIndex": "Status | Tickets"
+  },
+  "NavigationElements": {
+    "Tickets": "Tickets",
+    "Projects": "Projects",
+    "Administration": "Administration",
+    "Groups": "Groups",
+    "Users": "Users",
+    "Status": "Status"
+  },
+  "Actions": {
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Login": "Login",
+    "Create": "Create"
+  },
+  "Notifications": {
+    "SaveSuccess": "Successfully saved",
+    "SaveError": "Error while saving",
+    "WrongCredentials": "Users unknown"
+  },
+  "Sessions": {
+    "Titles": {
+      "Login": "Login"
+    }
+  },
+  "Users": {
+    "Titles": {
+      "Index": "Users",
+      "Create": "Create user"
+    },
+    "Attributes": {
+      "Email": "E-Mail",
+      "Password": "Password",
+      "CreatedAt": "Created at",
+      "UpdatedAt": "Updated at"
+    },
+    "Popups": {
+      "ConfirmDelete": "Do you really want to delete this user?"
+    }
+  },
+  "Status": {
+    "Titles": {
+      "Index": "Status",
+      "Create": "Create status",
+      "Edit": "Edit status",
+      "Show": "Status details"
+    },
+    "Attributes": {
+      "Name": "Name",
+      "CreatedAt": "Created at",
+      "UpdatedAt": "Updated at"
+    },
+    "Popups": {
+      "ConfirmDelete": "Do you really want to delete this status?"
+    }
+  },
+  "Projects": {
+    "Titles": {
+      "Index": "Projects",
+      "Create": "Create project",
+      "Edit": "Edit project",
+      "Show": "Project details"
+    },
+    "Attributes": {
+      "Name": "Name",
+      "Description": "Description",
+      "Status": "Status",
+      "CreatedAt": "Created at",
+      "UpdatedAt": "Updated at"
+    },
+    "Popups": {
+      "ConfirmDelete": "Do you really want to delete this project?"
+    }
+  },
+  "DevelopmentErrors": {
+    "FormHelper": {
+      "BuildForm": {
+        "NotAnArray": "You passed something to FormHelper::build_form() that was not an array.",
+        "ArrayIncomplete": "One of the passed arrays isn't complete."
+      }
+    }
+  }
+}

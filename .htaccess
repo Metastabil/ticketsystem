@@ -1,0 +1,20 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule error views/errors/error.php
+
+# Users
+RewriteRule users/create views/users/create.php [L]
+# RewriteRule users/edit/
+RewriteRule users views/users/index.php [L]
+
+# Status
+RewriteRule status/create views/status/create.php [L]
+RewriteRule status views/status/index.php [L]
+
+# Projects
+RewriteRule projects views/projects/index.php [L]
+
+# Sessions
+RewriteRule login views/sessions/login.php
