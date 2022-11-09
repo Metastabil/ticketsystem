@@ -1,20 +1,58 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteEngine on
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule error views/errors/error.php
+# RewriteRule error views/errors/error.php
 
 # Users
-RewriteRule users/create views/users/create.php [L]
+# RewriteRule users/create views/users/create.php [L]
 # RewriteRule users/edit/
-RewriteRule users views/users/index.php [L]
+# RewriteRule users views/users/index.php [L]
 
 # Status
-RewriteRule status/create views/status/create.php [L]
-RewriteRule status views/status/index.php [L]
+# RewriteRule status/create views/status/create.php [L]
+# RewriteRule status views/status/index.php [L]
 
 # Projects
-RewriteRule projects views/projects/index.php [L]
+# RewriteRule projects views/projects/index.php [L]
 
 # Sessions
-RewriteRule login views/sessions/login.php
+# RewriteRule login views/sessions/login.php
+
+# Rewrite to www
+Options +FollowSymLinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^localhost/projects/ticketsystem/[nc]
+RewriteRule ^(.*)$ http://www.localhost/projects/ticketsystem//$1 [r=301,nc]
+
+# Sessions
+RewriteRule login views/sessions/login.php [NC,L]
+RewriteRule logout views/sessions/logout.php [NC,L]
+
+# Users
+RewriteRule ^users/delete/(.*) views/users/delete.php?id=$1 [NC,L]
+RewriteRule ^users/show/(.*) views/users/show.php?id=$1 [NC,L]
+RewriteRule ^users/edit/(.*) views/users/edit.php?id=$1 [NC,L]
+RewriteRule users/create views/users/create.php [NC,L]
+RewriteRule users views/users/index.php [NC,L]
+
+# Status
+RewriteRule ^status/delete/(.*) views/status/delete.php?id=$1 [NC,L]
+RewriteRule ^status/show/(.*) views/status/show.php?id=$1 [NC,L]
+RewriteRule ^status/edit/(.*) views/status/edit.php?id=$1 [NC,L]
+RewriteRule status/create views/status/create.php [NC,L]
+RewriteRule status views/status/index.php [NC,L]
+
+# Groups
+RewriteRule ^groups/delete/(.*) views/groups/delete.php?id=$1 [NC,L]
+RewriteRule ^groups/show/(.*) views/groups/show.php?id=$1 [NC,L]
+RewriteRule ^groups/edit/(.*) views/groups/edit.php?id=$1 [NC,L]
+RewriteRule groups/create views/groups/create.php [NC,L]
+RewriteRule groups views/groups/index.php [NC,L]
+
+# Tickets
+RewriteRule ^tickets/delete/(.*) views/tickets/delete.php?id=$1 [NC,L]
+RewriteRule ^tickets/show/(.*) views/tickets/show.php?id=$1 [NC,L]
+RewriteRule ^tickets/edit/(.*) views/tickets/edit.php?id=$1 [NC,L]
+RewriteRule tickets/create views/tickets/create.php [NC,L]
+RewriteRule tickets views/tickets/index.php [NC,L]
