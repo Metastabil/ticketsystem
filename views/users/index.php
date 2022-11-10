@@ -20,66 +20,6 @@ $users = $user->get();
     $(document).ready(function() {
         let json = <?= json_encode($users); ?>;
 
-        prepareDataForDataGrid(json);
-        renderDataGrid();
+        usersIndexDataGrid(json);
     });
-
-    function prepareDataForDataGrid(json) {
-        $.each(json, function(index, value) {
-            let element = {};
-
-            element.id = value['ID'];
-            element.email = value['Email'];
-            element.createdAt = value['CreatedAt'];
-            element.updatedAt = value['UpdatedAt'];
-
-            elements.push(element);
-        });
-    }
-
-    function renderDataGrid() {
-        let dataGridContainer = $('.grid');
-
-        dataGridContainer.dxDataGrid({
-            dataSource: elements,
-            keyExpr: 'id',
-            showBorders: false,
-            filterRow: { visible: false },
-            searchPanel: { visible: false },
-            paging: { pageSize: 10 },
-            allowColumnResizing: true,
-            columns: [{
-                dataField: 'email',
-                caption: lang['Users']['Attributes']['Email']
-            }, {
-                dataField: 'createdAt',
-                caption: lang['Users']['Attributes']['CreatedAt']
-            }, {
-                dataField: 'updatedAt',
-                caption: lang['Users']['Attributes']['UpdatedAt']
-            }, {
-                type: 'buttons',
-                buttons: ['edit', 'delete', {
-                    hint: lang['Actions']['Edit'],
-                    cssClass: 'fa-solid fa-pen-to-square',
-                    onClick: function(e) {
-                        window.location.href = baseURL + 'users/edit/' + e.data.id
-                    }
-                }, {
-                    hint: lang['Actions']['Delete'],
-                    cssClass: 'fa-solid fa-trash',
-                    onClick: function(e) {
-                        let confirmation = confirm(lang['Users']['Popups']['ConfirmDelete']);
-
-                        if (confirmation) {
-                            window.location.href = baseURL + 'users/delete/' + e.row.data.id
-                        }
-                    }
-                }]
-            }],
-            onRowClick: function(e) {
-                window.location.href = baseURL + 'users/show/' + e.data.id
-            }
-        });
-    }
 </script>

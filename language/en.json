@@ -6,6 +6,7 @@
   "TabTitles": {
     "UsersIndex": "Users | Tickets",
     "UsersCreate": "Create user | Tickets",
+    "UsersEdit": "Edit user | Tickets",
     "Login": "Login | Tickets",
     "StatusIndex": "Status | Tickets"
   },
@@ -23,12 +24,15 @@
     "Edit": "Edit",
     "Delete": "Delete",
     "Login": "Login",
-    "Create": "Create"
+    "Create": "Create",
+    "Back": "Back"
   },
   "Notifications": {
     "SaveSuccess": "Successfully saved",
     "SaveError": "Error while saving",
-    "WrongCredentials": "Users unknown"
+    "WrongCredentials": "Users unknown",
+    "DeleteSuccess": "Successfully deleted",
+    "DeleteError": "Error while deleting"
   },
   "Sessions": {
     "Titles": {
@@ -38,7 +42,9 @@
   "Users": {
     "Titles": {
       "Index": "Users",
-      "Create": "Create user"
+      "Create": "Create user",
+      "Edit": "Edit user",
+      "Show": "User details"
     },
     "Attributes": {
       "Email": "E-Mail",

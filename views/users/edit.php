@@ -1,13 +1,22 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/projects/ticketsystem/shared.php';
 
-if (FormHelper::is_post_submitted()) {
-    $data = [
-        ApplicationHelper::make_string_safe($_POST['email']),
-        password_hash($_POST['password'], PASSWORD_DEFAULT)
-    ];
+$title = LANG['TabTitles']['UsersEdit'];
 
-    if ($user->create($data)) {
+require_once dirname(__DIR__) . '/templates/header.php';
+
+$users_array = $user->get_by_id(intval($_GET['id']));
+
+if (FormHelper::is_post_submitted()) {
+    $data[] = ApplicationHelper::make_string_safe($_POST['email']);
+
+    if ((!empty($_POST['password']))) {
+        $data[] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    }
+
+    $data[] = intval($_GET['id']);
+
+    if ($user->update($data)) {
         $_SESSION['success'] = LANG['Notifications']['SaveSuccess'];
     }
     else {
@@ -17,17 +26,13 @@ if (FormHelper::is_post_submitted()) {
     header("Location: " . ApplicationHelper::create_redirect_link('users'));
     exit();
 }
-
-$title = LANG['TabTitles']['UsersCreate'];
-
-require_once dirname(__DIR__) . '/templates/header.php';
 ?>
 
-<h1 class="default-title"><?= LANG['Users']['Titles']['Create']; ?></h1>
+<h1 class="default-title"><?= LANG['Users']['Titles']['Edit']; ?></h1>
 
 <?php
 $form = [
-    'action' => ApplicationHelper::create_redirect_link('users/create'),
+    'action' => ApplicationHelper::create_redirect_link('users/edit/' . intval($_GET['id'])),
     'method' => 'post',
     'classes' => 'default-form'
 ];
@@ -42,7 +47,7 @@ $inputs = [
         'maxlength' => '255',
         'class' => '',
         'autocomplete' => 'off',
-        'value' => '',
+        'value' => $users_array['Email'],
         'required' => 'required'
     ],
     [
@@ -55,7 +60,7 @@ $inputs = [
         'class' => '',
         'autocomplete' => 'off',
         'value' => '',
-        'required' => 'required'
+        'required' => ''
     ]
 ];
 

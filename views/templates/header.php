@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
         <script src="https://kit.fontawesome.com/6d74c362a8.js" crossorigin="anonymous"></script>
         <script src="https://cdn3.devexpress.com/jslib/22.1.6/js/dx.all.js"></script>
+        <script src="<?= ApplicationHelper::base_url(); ?>assets/js/application.js"></script>
         <script src="<?= ApplicationHelper::base_url(); ?>assets/js/users.js"></script>
         <script>
             const baseURL = "<?= ApplicationHelper::base_url(); ?>";

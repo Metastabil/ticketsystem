@@ -28,3 +28,10 @@
     border-bottom: 1px solid var(--blue);
     outline: none;
 }
+
+.default-form input:disabled,
+.default-form select:disabled {
+    background: var(--white);
+    cursor: not-allowed;
+    border-bottom: 1px solid var(--blue);
+}

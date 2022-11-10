@@ -29,7 +29,8 @@ class FormHelper {
      *      'class' => 'input-class-1 input-class-2',
      *      'autocomplete' => 'off',
      *      'required' => 'required',
-     *      'value' => 'Some Value'
+     *      'value' => 'Some Value',
+     *      'disabled' => 'disabled'
      *  ]
      * ];
      */
@@ -74,8 +75,9 @@ class FormHelper {
             $autocomplete = (empty($input['autocomplete'])) ? 'on' : $input['autocomplete'];
             $required = (empty($input['required'])) ? '' : 'required';
             $value = (empty($input['value'])) ? '' : $input['value'];
+            $disabled = (empty($input['disabled'])) ? '' : $input['disabled'];
 
-            $form_string .= "<input type='$type' name='$name' id='$id' title='$title' placeholder='$placeholder' maxlength='$maxlength' class='$classes' autocomplete='$autocomplete' value='$value' $required/>";
+            $form_string .= "<input type='$type' name='$name' id='$id' title='$title' placeholder='$placeholder' maxlength='$maxlength' class='$classes' autocomplete='$autocomplete' value='$value' $disabled $required/>";
         }
 
         /* Build the buttons */
