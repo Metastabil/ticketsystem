@@ -20,42 +20,28 @@ $status_array = $status->get();
     $(document).ready(function() {
         let json = <?= json_encode($status_array); ?>;
 
-        prepareDataForDataGrid(json);
-        renderDataGrid();
+        renderDataGrid(json);
     });
 
-    function prepareDataForDataGrid(json) {
-        $.each(json, function(index, value) {
-            let element = {};
-
-            element.id = value['ID'];
-            element.email = value['Name'];
-            element.createdAt = value['CreatedAt'];
-            element.updatedAt = value['UpdatedAt'];
-
-            elements.push(element);
-        });
-    }
-
-    function renderDataGrid() {
+    function renderDataGrid(json) {
         let dataGridContainer = $('.grid');
 
         dataGridContainer.dxDataGrid({
-            dataSource: elements,
-            keyExpr: 'id',
+            dataSource: json,
+            keyExpr: 'ID',
             showBorders: false,
             filterRow: { visible: false },
             searchPanel: { visible: false },
             paging: { pageSize: 10 },
             allowColumnResizing: true,
             columns: [{
-                dataField: 'email',
+                dataField: 'Name',
                 caption: lang['Status']['Attributes']['Name']
             }, {
-                dataField: 'createdAt',
+                dataField: 'CreatedAt',
                 caption: lang['Status']['Attributes']['CreatedAt']
             }, {
-                dataField: 'updatedAt',
+                dataField: 'UpdatedAt',
                 caption: lang['Status']['Attributes']['UpdatedAt']
             }, {
                 type: 'buttons',
@@ -63,7 +49,7 @@ $status_array = $status->get();
                     hint: lang['Actions']['Edit'],
                     cssClass: 'fa-solid fa-pen-to-square',
                     onClick: function(e) {
-                        window.location.href = baseURL + 'status/edit/' + e.data.id
+                        window.location.href = baseURL + 'status/edit/' + e.row.data.ID
                     }
                 }, {
                     hint: lang['Actions']['Delete'],
@@ -72,13 +58,13 @@ $status_array = $status->get();
                         let confirmation = confirm(lang['Status']['Popups']['ConfirmDelete']);
 
                         if (confirmation) {
-                            window.location.href = baseURL + 'status/delete/' + e.row.data.id
+                            window.location.href = baseURL + 'status/delete/' + e.row.data.ID
                         }
                     }
                 }]
             }],
             onRowClick: function(e) {
-                window.location.href = baseURL + 'status/show/' + e.data.id
+                window.location.href = baseURL + 'status/show/' + e.data.ID
             }
         });
     }

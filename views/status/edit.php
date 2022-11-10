@@ -4,9 +4,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/projects/ticketsystem/shared.php';
 if (FormHelper::is_post_submitted()) {
     $data = [
         ApplicationHelper::make_string_safe($_POST['name']),
+        intval($_GET['id'])
     ];
 
-    if ($status->create($data)) {
+    if ($status->update($data)) {
         $_SESSION['success'] = LANG['Notifications']['SaveSuccess'];
     }
     else {
@@ -17,16 +18,18 @@ if (FormHelper::is_post_submitted()) {
     exit();
 }
 
-$title = LANG['TabTitles']['StatusCreate'];
+$title = LANG['TabTitles']['StatusEdit'];
 
 require_once dirname(__DIR__) . '/templates/header.php';
+
+$status_array = $status->get_by_id(intval($_GET['id']));
 ?>
 
-<h1 class="default-title"><?= LANG['Status']['Titles']['Index']; ?></h1>
+    <h1 class="default-title"><?= LANG['Status']['Titles']['Edit']; ?></h1>
 
 <?php
 $form = [
-    'action' => ApplicationHelper::create_redirect_link('status/create'),
+    'action' => ApplicationHelper::create_redirect_link('status/edit/' . intval($_GET['id'])),
     'method' => 'post',
     'classes' => 'default-form'
 ];
@@ -41,6 +44,7 @@ $inputs = [
         'maxlength' => '255',
         'class' => '',
         'autocomplete' => 'off',
+        'value' => $status_array['Name'],
         'required' => 'required'
     ]
 ];

@@ -8,7 +8,10 @@
     "UsersCreate": "Create user | Tickets",
     "UsersEdit": "Edit user | Tickets",
     "Login": "Login | Tickets",
-    "StatusIndex": "Status | Tickets"
+    "StatusIndex": "Status | Tickets",
+    "StatusCreate": "Create status | Tickets",
+    "StatusEdit": "Edit status | Tickets",
+    "StatusShow": "Status details | Tickets"
   },
   "NavigationElements": {
     "Tickets": "Tickets",

@@ -9,6 +9,9 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
 RewriteRule ^ /%1 [R=301,NE,L]
 
+# Error
+RewriteRule ^error views/errors/error.php [NC,L]
+
 # Sessions
 RewriteRule ^login views/sessions/login.php [NC,L]
 RewriteRule ^logout views/sessions/logout.php [NC,L]

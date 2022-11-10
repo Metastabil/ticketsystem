@@ -20,7 +20,7 @@ class ApplicationHelper {
         }
     }
 
-    public static function redirerct_to_error() {
+    public static function redirect_to_error() {
         header("Location: " . self::create_redirect_link('error'));
     }
 }
