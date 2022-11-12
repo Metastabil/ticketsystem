@@ -43,3 +43,10 @@ RewriteRule ^tickets/show/(.*) views/tickets/show.php?id=$1 [NC,L]
 RewriteRule ^tickets/edit/(.*) views/tickets/edit.php?id=$1 [NC,L]
 RewriteRule ^tickets/create views/tickets/create.php [NC,L]
 RewriteRule ^tickets views/tickets/index.php [NC,L]
+
+# Projects
+RewriteRule ^projects/delete/(.*) views/projects/delete.php?id=$1 [NC,L]
+RewriteRule ^projects/show/(.*) views/projects/show.php?id=$1 [NC,L]
+RewriteRule ^projects/edit/(.*) views/projects/edit.php?id=$1 [NC,L]
+RewriteRule ^projects/create views/projects/create.php [NC,L]
+RewriteRule ^projects views/projects/index.php [NC,L]
