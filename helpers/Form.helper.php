@@ -46,6 +46,7 @@ class FormHelper {
     }
 
     public static function build_select(array $select) :string {
+        $selected = (empty($select['selected'])) ? '' : $select['selected'];
         $html = '';
         $html .= '<select ';
         $html .= empty($select['name']) ? '' : 'name="' . ApplicationHelper::make_string_safe($select['name']) . '" ';
@@ -57,8 +58,10 @@ class FormHelper {
         $html .= '>';
 
         foreach ($select['options'] as $option) {
+            $value = empty($option['value']) ? '' : $option['value'];
             $html .= '<option ';
             $html .= empty($option['value']) ? 'value="0"' : 'value="' . $option['value'] . '" ';
+            $html .= $selected == $option['value'] ? 'selected ' : '';
             $html .= '>';
             $html .= empty($option['text']) ? 'TEXT' : ApplicationHelper::make_string_safe($option['text']);
         }
