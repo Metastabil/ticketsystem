@@ -1,42 +1,24 @@
 <?php
-session_start();
+require_once $_SERVER['DOCUMENT_ROOT'] . '/projects/ticketsystem/shared.php';
 
-$path = $_SERVER['DOCUMENT_ROOT'] . '/projects/ticketsystem/';
-
-/* Classes */
-require_once $path . 'classes/Database.class.php';
-require_once $path . 'classes/User.class.php';
-
-/* Helpers */
-require_once $path . 'helpers/Application.helper.php';
-require_once $path . 'helpers/Language.helper.php';
-require_once $path . 'helpers/Form.helper.php';
-
-/* Variables */
-LANG = LanguageHelper::language('en');
-$database_class = new Database();
-$connection = $database_class->connect('development');
-$user = new User($connection);
 $title = LANG['TabTitles']['Login'];
+$error = '';
 
-if (FormHelper::is_post_submitted()) {
+if (FormHelper::is_form_submitted()) {
     $data = [
-        'email' => ApplicationHelper::make_string_safe($_POST['email']),
+        'email' => $_POST['email'],
         'password' => $_POST['password']
     ];
 
-    var_dump(!$user->check_credentials($data));
-    exit();
-
-    if (!$user->check_credentials($data)) {
-       $_SESSION['error'] = LANG['Notifications']['WrongCredentials'];
-       // header("Location: " . ApplicationHelper::create_redirect_link('login'));
+    if ($user->check_credentials($data)) {
+        header("Location: " . ApplicationHelper::create_redirect_link('users'));
+        exit();
     }
     else {
-        // header("Location: " . ApplicationHelper::create_redirect_link('users'));
-    }
+        $error = LANG['Notifications']['WrongCredentials'];
 
-    print_r($_SESSION);
+        print($error);
+    }
 }
 ?>
 
@@ -52,11 +34,11 @@ if (FormHelper::is_post_submitted()) {
         <div id="content">
             <h1><?= LANG['Sessions']['Titles']['Login']; ?></h1>
             <form action="<?= ApplicationHelper::create_redirect_link('login'); ?>" method="post">
-                <input type="email" name="email" id="email" title="<?= LANG['Users']['Attributes']['Email']; ?>" placeholder="<?= LANG['Users']['Attributes']['Email']; ?>" maxlength="255" required="required" autocomplete="off" />
-                <input type="password" name="password" id="password" title="<?= LANG['Users']['Attributes']['Password']; ?>" placeholder="<?= LANG['Users']['Attributes']['Password']; ?>" maxlength="255" required="required" />
-                <button title="<?= LANG['Actions']['Login']; ?>">
-                    <?= LANG['Actions']['Login']; ?>
-                </button>
+                <?= FormHelper::build_input(['type' => 'email', 'name' => 'email', 'ids' => 'email', 'title' => LANG['Users']['Attributes']['Email'], 'placeholder' => LANG['Users']['Attributes']['Email'], 'maxlength' => 255, 'autocomplete' => 'off', 'required' => 'required']); ?>
+                <?= FormHelper::build_input(['type' => 'password', 'name' => 'password', 'ids' => 'password', 'title' => LANG['Users']['Attributes']['Password'], 'placeholder' => LANG['Users']['Attributes']['Password'], 'required' => 'required']); ?>
+                <div class="button-row">
+                    <?= FormHelper::build_button(['type' => 'button', 'title' => LANG['Actions']['Login'], 'text' => LANG['Actions']['Login'], 'classes' => 'btn btn-save']); ?>
+                </div>
             </form>
         </div>
     </body>

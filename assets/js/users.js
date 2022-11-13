@@ -6,28 +6,40 @@ function usersIndexDataGrid(json) {
 
     dataGridContainer.dxDataGrid({
         dataSource: json,
-        keyExpr: 'ID',
+        keyExpr: 'id',
         showBorders: false,
         filterRow: { visible: false },
         searchPanel: { visible: false },
         paging: { pageSize: 10 },
         allowColumnResizing: true,
         columns: [{
-            dataField: 'Email',
+            dataField: 'first_name',
+            caption: lang['Users']['Attributes']['FirstName']
+        }, {
+            dataField: 'last_name',
+            caption: lang['Users']['Attributes']['LastName']
+        }, {
+            dataField: 'email',
             caption: lang['Users']['Attributes']['Email']
         }, {
-            dataField: 'CreatedAt',
+            dataField: 'created_at',
             caption: lang['Users']['Attributes']['CreatedAt']
         }, {
-            dataField: 'UpdatedAt',
+            dataField: 'updated_at',
             caption: lang['Users']['Attributes']['UpdatedAt']
         }, {
             type: 'buttons',
-            buttons: ['edit', 'delete', {
+            buttons: ['password', 'edit', 'delete', {
+                hint: lang['Actions']['Password'],
+                cssClass: 'fa-solid fa-wrench',
+                onClick: function(e) {
+                    window.location.href = baseURL + 'users/password/' + e.row.data.id
+                }
+            }, {
                 hint: lang['Actions']['Edit'],
                 cssClass: 'fa-solid fa-pen-to-square',
                 onClick: function(e) {
-                    window.location.href = baseURL + 'users/edit/' + e.row.data.ID
+                    window.location.href = baseURL + 'users/edit/' + e.row.data.id
                 }
             }, {
                 hint: lang['Actions']['Delete'],
@@ -36,13 +48,13 @@ function usersIndexDataGrid(json) {
                     let confirmation = confirm(lang['Users']['Popups']['ConfirmDelete']);
 
                     if (confirmation) {
-                        window.location.href = baseURL + 'users/delete/' + e.row.data.ID
+                        window.location.href = baseURL + 'users/delete/' + e.row.data.id
                     }
                 }
             }]
         }],
         onRowClick: function(e) {
-            window.location.href = baseURL + 'users/show/' + e.data.ID
+            window.location.href = baseURL + 'users/show/' + e.data.id
         }
     });
 }

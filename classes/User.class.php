@@ -6,86 +6,92 @@ class User {
         $this->_connection = $connection;
     }
 
-    public function get() {
-        $sql = "SELECT id AS ID, email AS Email, DATE_FORMAT(created_at, '%d.%m.%Y') AS CreatedAt, DATE_FORMAT(updated_at, '%d.%m.%Y') AS UpdatedAt FROM users";
-        $statement = $this->_connection->prepare($sql);
-        $statement->execute();
+    public function get(int $id = 0) :array {
+        $users = [];
 
-        while ($row = $statement->fetch()) {
-            $users[] = $row;
-        }
-
-        return (count($users) > 0) ? $users : [];
-    }
-
-    public function get_by_id($id) {
-        $sql = "SELECT id AS ID, email AS Email, DATE_FORMAT(created_at, '%d.%m.%Y') AS CreatedAt, DATE_FORMAT(updated_at, '%d.%m.%Y') AS UpdatedAt FROM users WHERE id = ?";
-        $statement = $this->_connection->prepare($sql);
-        $statement->execute([intval($id)]);
-
-        while ($row = $statement->fetch()) {
-            $users[] = $row;
-        }
-
-        return (count($users) > 0) ? $users[0] : [];
-    }
-
-    public function create(array $data) {
-        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
-        $statement = $this->_connection->prepare($sql);
-
-        return $statement->execute($data);
-    }
-
-    public function update(array $data) {
-        if (!empty($data['password'])) {
-            $sql = "UPDATE users SET email = ?, password = ? WHERE id = ?";
+        if ($id > 0) {
+            $sql = "SELECT id, first_name, last_name, email, password, is_administrator, DATE_FORMAT(created_at, '%d.%m.%Y') AS created_at, DATE_FORMAT(updated_at, '%d.%m.%Y') AS updated_at
+                    FROM users
+                    WHERE id = ?";
+            $statement = $this->_connection->prepare($sql);
+            $statement->execute([$id]);
         }
         else {
-            $sql = "UPDATE users SET email = ? WHERE id = ?";
+            $sql = "SELECT id, first_name, last_name, email, password, is_administrator, DATE_FORMAT(created_at, '%d.%m.%Y') AS created_at, DATE_FORMAT(updated_at, '%d.%m.%Y') AS updated_at
+                    FROM users";
+            $statement = $this->_connection->prepare($sql);
+            $statement->execute();
         }
 
+        while ($row = $statement->fetch()) {
+            $users[] = $row;
+        }
+
+        if ($id > 0) {
+            $return = (count($users) > 0) ? $users[0] : [];
+        }
+        else {
+            $return = (count($users) > 0) ? $users : [];
+        }
+
+        return $return;
+    }
+
+    public function create(array $data) :bool {
+        $sql = "INSERT INTO users (first_name, last_name, email, password, is_administrator) VALUES(?, ?, ?, ?, ?)";
         $statement = $this->_connection->prepare($sql);
 
         return $statement->execute($data);
     }
 
-    public function delete(int $id) {
+    public function update(array $data) :bool {
+        $sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, is_administrator = ? WHERE id = ?";
+        $statement = $this->_connection->prepare($sql);
+
+        return $statement->execute($data);
+    }
+
+    public function update_password(array $data) :bool {
+        $sql = "UPDATE users SET password = ? WHERE id = ?";
+        $statement = $this->_connection->prepare($sql);
+
+        return $statement->execute($data);
+    }
+
+    public function delete(int $id) :bool {
         $sql = "DELETE FROM users WHERE id = ?";
         $statement = $this->_connection->prepare($sql);
 
         return $statement->execute([$id]);
     }
 
-
-    // TODO ~> Doesn't set the user data in $_SESSION
-    public function check_credentials(array $data) {
-        $result = false;
-        $statement_data = [
-            $data['email']
-        ];
-
-        $sql = "SELECT id, email, password FROM users WHERE email = ?";
+    public function check_credentials(array $credentials) :bool {
+        $users = [];
+        $success = false;
+        $sql = "SELECT id, first_name, last_name, email, password, is_administrator FROM users WHERE email = ?";
         $statement = $this->_connection->prepare($sql);
-        $statement->execute($statement_data);
+        $statement->execute([$credentials['email']]);
 
         while ($row = $statement->fetch()) {
             $users[] = $row;
         }
 
-        if (count($users) < 1) {
+        if (count($users) > 0) {
             $user = $users[0];
 
-            if (password_verify($data['password'], $user['password'])) {
+            if (password_verify($credentials['password'], $user['password'])) {
                 $_SESSION['user'] = [
                     'id' => $user['id'],
-                    'email' => $user['email']
+                    'first_name' => $user['first_name'],
+                    'last_name' => $user['last_name'],
+                    'email' => $user['email'],
+                    'is_adminsitrator' => $user['is_administrator']
                 ];
 
-                $result = true;
+                $success = true;
             }
         }
 
-        return $result;
+        return $success;
     }
 }

@@ -23,3 +23,7 @@ $users = $user->get();
         usersIndexDataGrid(json);
     });
 </script>
+
+<?php
+require_once dirname(__DIR__) . '/templates/footer.php';
+?>
