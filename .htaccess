@@ -17,6 +17,7 @@ RewriteRule ^login views/sessions/login.php [NC,L]
 RewriteRule ^logout views/sessions/logout.php [NC,L]
 
 # Users
+RewriteRule ^users/password/(.*) views/users/update_password.php?id=$1 [NC,L]
 RewriteRule ^users/delete/(.*) views/users/delete.php?id=$1 [NC,L]
 RewriteRule ^users/show/(.*) views/users/show.php?id=$1 [NC,L]
 RewriteRule ^users/edit/(.*) views/users/edit.php?id=$1 [NC,L]
